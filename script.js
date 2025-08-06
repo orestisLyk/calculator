@@ -50,8 +50,12 @@ function numberHandler(button) {
 
 function operatorHandler(button) {
     if(!calculation.cursorFlag) {
+        if(calculation.first === "" && button.textContent === "-") {
+            calculation.first = "-"
+        } else {   
         calculation.operator = button.textContent;
         calculation.cursorFlag = true;
+        }
     } else {
         let op = calculation.operator;
         equalsHandler();
