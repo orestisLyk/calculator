@@ -17,12 +17,15 @@ button {
 }
 
 #display {
+    display: flex;
     background-color: green;
     height: 100px;
     width: 565px;
     border-radius: 10px ;
     font-size: 60px;
-
+    justify-content: center;
+    text-align: center;
+    align-items: center;
 }
 
 #controls-container {

@@ -1,38 +1,31 @@
 const equals = document.querySelector("#equals");
-const allButtons = document.querySelector("button");
+const controlsContainer = document.querySelector("#controls-container");
+const display = document.querySelector("#display");
 
 
 
+controlsContainer.addEventListener("click",clickHandler);
 
-allButtons.addEventListener("click",clickHandler);
-
-
+//cursorFlag:  False for left, True for right
 let calculation = {
     first: "",
     second: "",
     operator: "",
-}
-
-function add(a,b) {
-    return a + b;
-}
-
-function subtract(a,b) {
-    return a - b;
-}
-
-function multiply(a,b) {
-    return a * b;
-}
-
-function divide(a,b) {
-    return a / b;
+    cursorFlag: false,
 }
 
 function clearCalculation() {
-    for(let i in calculation) {
-        i = "";
-    }
+    calculation.first = "";
+    calculation.operator = "";
+    calculation.second = "";
+    calculation.cursorFlag = false;
+}
+
+function refreshDisplay() {
+    let displayed = calculation.first;
+    displayed += " " + calculation.operator;
+    displayed += " " + calculation.second;
+    display.textContent = displayed;
 }
 
 function clickHandler(click) {
@@ -44,18 +37,52 @@ function clickHandler(click) {
     } else if(target.classList.contains("special")) {
         specialHandler(target);
     }
+    refreshDisplay();
 }
 
 function numberHandler(button) {
-    if(calculation.first) {
-
+    if(!calculation.cursorFlag) {
+        calculation.first += String(button.textContent);
+    } else {
+        calculation.second += String(button.textContent);
     }
 }
 
 function operatorHandler(button) {
-
+    if(!calculation.cursorFlag) {
+        calculation.operator = button.textContent;
+        calculation.cursorFlag = true;
+    } else {
+        let op = calculation.operator;
+        equalsHandler();
+        calculation.operator = op;
+        calculation.cursorFlag = true;
+    }
+    
 }
 
 function specialHandler(button) {
+    if(button.id === "equals") {
+        equalsHandler();
+    } else {
+        clearCalculation();
+    }
+}
 
+function equalsHandler() {
+    const a = Number(calculation.first);
+    const b = Number(calculation.second);
+    const x = calculation.operator;
+    let result = 0;
+    if(x === "+") {
+        result = a + b;
+    } else if(x === "-") {
+        result = a - b;
+    } else if(x === "x") {
+        result = a * b;
+    } else if(x === "/") {
+        result = a / b;
+    }
+    clearCalculation();
+    calculation.first = result;
 }
