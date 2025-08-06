@@ -1,0 +1,42 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    background-color: rgb(175, 175, 175);
+    height:800px;
+}
+
+button {
+    width:100px;
+    height:100px;
+    font-size: 50px;
+    margin: 3px;
+}
+
+#display {
+    background-color: green;
+    height: 100px;
+    width: 565px;
+    border-radius: 10px ;
+    font-size: 60px;
+
+}
+
+#controls-container {
+    display: flex;
+    gap:20px;
+}
+
+#operators-container,#results-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.numbers-row {
+    display:flex;
+    justify-content: flex-end;
+}
